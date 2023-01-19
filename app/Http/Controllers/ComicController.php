@@ -14,8 +14,8 @@ class ComicController extends Controller
      */
     public function index()
     {
-
-        $comic = Comic::all();
+        /* $comic = Comic::all(); */
+        $comic = Comic::paginate(4);
 
         $data = [
 
@@ -34,7 +34,7 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.fumetti.create');
     }
 
     /**
@@ -45,7 +45,18 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $new_record = new Comic();
+        $new_record->title = $data['title'];
+        $new_record->description = $data['description'];
+        $new_record->price = $data['price'];
+        $new_record->sale_date = $data['sale_date'];
+        $new_record->save();
+
+        return redirect()->route('fumetti.index', ['id' => $new_record->id]);
+
+
     }
 
     /**
@@ -56,7 +67,11 @@ class ComicController extends Controller
      */
     public function show($id)
     {
-        //
+        /* dd($id); */
+
+        $elem = Comic::findOrFail($id);
+        /* dd($elem); */
+        return view('pages.fumetti.show', compact('elem'));
     }
 
     /**
