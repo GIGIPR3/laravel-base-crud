@@ -105,6 +105,9 @@ class ComicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comic = Comic::findOrFail($id);
+        $comic->delete(); //si prende la variabile $comic e si da la funzione delete() che è una funzione pre impostata di laravel
+
+        return redirect()-> route('fumetti.index')->with('success', "Hai cancellato con successo: $comic->title");
     }
 }

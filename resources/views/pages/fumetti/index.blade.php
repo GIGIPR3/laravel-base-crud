@@ -16,6 +16,7 @@
             <th scope="col">description</th>
             <th scope="col">price</th>
             <th scope="col">sale_date</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -32,6 +33,19 @@
                     <td>{{ $elem->description }}</td>
                     <td>{{ $elem->price }}</td>
                     <td>{{ $elem->sale_date }}</td>
+                    <td>
+                        <form action="{{ route('fumetti.destroy', $elem->id) }}" method="POST">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+
+                        </form>
+                    </td>
                 </tr>
 
             @endforeach
