@@ -5,35 +5,34 @@
     <h1>Lista dei fumetti</h1>
 
     <div>
-        <a href="{{route('fumetti.create')}}">Crea Fumetto</a>
+        <a href="{{ route('fumetti.create') }}">Crea Fumetto</a>
     </div>
 
     <table class="table">
         <thead>
-          <tr>
-            <th scope="col">id</th>
-            <th scope="col">title</th>
-            <th scope="col">description</th>
-            <th scope="col">price</th>
-            <th scope="col">sale_date</th>
-            <th scope="col">Action</th>
-          </tr>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">title</th>
+                <th scope="col">description</th>
+                <th scope="col">price</th>
+                <th scope="col">sale_date</th>
+                <th scope="col">Action</th>
+            </tr>
         </thead>
         <tbody>
 
             @foreach ($comic as $elem)
-
                 <tr>
                     <td>{{ $elem->id }}</td>
                     <td>
-                        <a href="{{ route('fumetti.show', $elem->id)}}">
+                        <a href="{{ route('fumetti.show', $elem->id) }}">
                             {{ $elem->title }}
                         </a>
                     </td>
                     <td>{{ $elem->description }}</td>
                     <td>{{ $elem->price }}</td>
                     <td>{{ $elem->sale_date }}</td>
-                    <td>
+                    <td class="">
                         <form action="{{ route('fumetti.destroy', $elem->id) }}" method="POST">
 
                             @csrf
@@ -42,17 +41,26 @@
                             <button type="submit" class="btn btn-danger">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
-
-
                         </form>
+
+                        <div>
+                            <a href="{{ route('fumetti.edit', $elem->id) }}">
+                                <button type="button" class="btn btn-primary"><i class="fa-solid fa-pen m-auto"></i></button>
+                            </a>
+                        </div>
+
+
+
                     </td>
                 </tr>
-
             @endforeach
 
 
 
         </tbody>
-      </table>
-        {{ $comic->links() }}
+    </table>
+
+
+
+    {{ $comic->links() }}
 @endsection
